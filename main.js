@@ -254,8 +254,16 @@ function fetchOkolie() {
         ['Obecný úrad Geča', 'https://www.obecgeca.sk/obec-1/aktuality/mobilna-aplikacia-celoplosne-testovanie-v-obci-geca-209sk.html', 48.628166, 21.308840, 'grey'],
         ['Pri obecnom úrade Chrastné 86', 'http://www.chrastne.sk/oznam-k-celoplosnemu-testovaniu-v-nasej-obci-a22-25', 48.791735, 21.347536, 'blue'],
         ['Obecný úrad Čižatice (iba v nedeľu)', 'https://www.cizatice.sk/', 48.797020, 21.392812, 'grey'],
-        ['Malá sála kultúrneho domu - Sady nad Torysou, Byster', 'https://www.sadynadtorysou.sk/', 48.729116, 21.340244, 'grey'],
-        ['Areál základnej školy - Sady nad Torysou, Zdoba', 'https://www.sadynadtorysou.sk/', 48.706966, 21.330869, 'blue']
+        ['Malá sála kultúrneho domu - Sady nad Torysou, Byster', 'https://www.sadynadtorysou.sk/', 48.707621, 21.345060, 'grey'],
+        ['Areál základnej školy - Sady nad Torysou, Zdoba', 'https://www.sadynadtorysou.sk/', 48.706966, 21.330869, 'blue'],
+        ['Denný stacionár, Vyšná Kamenica 38 (iba v sobotu)', 'http://www.vysnakamenica.sk/--23-74-oznam---testovanie-', 48.780605, 21.485301, 'grey'],
+        ['Klub dôchodcov pri kaštieli – Nižná Kamenica 1', 'http://www.niznakamenica.sk/--23-120-celoplosne-testovanie', 48.759626, 21.477414, 'grey'],
+        ['Kultúrny dom Olšovany', 'https://www.obecolsovany.sk/--23-81-celoplosne-testovanie', 48.705647, 21.410687, 'grey'],
+        ['Kultúrny dom Ďurkov', 'https://www.durkov.sk/oznam-testovanie-covid-19-oznam/mid/447328/.html', 48.708172, 21.442698, 'grey'],
+        ['Kultúrny dom Haniska', 'https://www.haniska.sk/oznamy/testovanie-obcanov-na-covid-19-v-haniske-casovy-harmonogram.html', 48.621025, 21.253065, 'grey'],
+        ['Kultúrny dom Košický Klečenov (iba v nedeľu)', 'https://www.kosickyklecenov.sk/--23-71-celoplosne-testovanie-kosicky-klecenov', 48.743018, 21.506856, 'grey'],
+        ['Zasadacia miestnosť na Obecnom úrade Herľany (iba v nedeľu)', 'https://www.herlany.sk/informacie-k-celoplosnemu-testovaniu-na-covid-19-a22-125', 48.799969, 21.478081, 'grey']
+
 
     ]
     miesta.forEach(miesto => {
