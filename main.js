@@ -162,6 +162,11 @@ function fetchData() {
     fetchOkolie()
 }
 
+function isLive() {
+    return (Date.now() > 1604124000000 && Date.now() < 1604268000000)
+        || (Date.now() > 1604772000000 && Date.now() < 1604872800000)
+}
+
 function fetchKosice() {
     fetch('miesta.html')
         .then(response => response.text())
@@ -178,8 +183,7 @@ function fetchKosice() {
                 data.map(datum => {
                     const adresa = datum[0].trim().replace('\n', '')
                     const [lat, lng] = geocode(adresa)
-                    // const cas = datum[1].trim()
-                    const cas = Math.floor(Math.random() * 100);
+                    const cas = isLive() ? datum[1].trim() : Math.floor(Math.random() * 100)
                     console.log(`Adding ${adresa} - N ${lat} E ${lng} cas ${cas}`)
                     const casString = (cas === '') ? 'Neznámy' : `${cas} minút`
                     const tooltip = `${adresa}\nOdhadovaný čas čakania: ${casString}`
