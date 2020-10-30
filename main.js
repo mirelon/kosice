@@ -203,12 +203,13 @@ function fetchKosice() {
                     const adresa = datum[0].trim().replace('\n', '')
                     const [lat, lng] = geocode(adresa)
                     if ([lat, lng] !== [0, 0]) {
-                        const cas = isLive() ? datum[1].trim() : Math.floor(Math.random() * 100)
+                        const cas = isLive() ? datum[1].trim() : (Math.random() < 0.2 ? '' : Math.floor(Math.random() * 100))
                         console.log(`Adding ${adresa} - N ${lat} E ${lng} cas ${cas}`)
                         const casString = (cas === '') ? 'Neznámy' : `${cas} minút`
                         const tooltip = `${adresa}\nOdhadovaný čas čakania: ${casString}`
 
-                        const color = (cas === '') ? 'grey' :
+                        const color = (cas === '') ?
+                            (adresa.includes('vonku') ? 'blue' : 'grey') :
                             (cas < 10) ? 'green' :
                                 (cas < 20) ? 'gold' :
                                     (cas < 40) ? 'yellow' :
