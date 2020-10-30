@@ -141,12 +141,15 @@ const geocodeData = [
 ]
 
 function geocode(adresa) {
+    if (adresa === 'Odberné miesto') {
+        return [0, 0]
+    }
     for (const geocodeDatum of geocodeData) {
         if (adresa === geocodeDatum[0]) {
             return geocodeDatum.slice(1)
         }
     }
-    console.warn(`Could not geocode ${adresa.trim()}`)
+    console.warn(`Could not geocode ${adresa}`)
     return [0, 0]
 }
 
@@ -199,18 +202,20 @@ function fetchKosice() {
                 data.map(datum => {
                     const adresa = datum[0].trim().replace('\n', '')
                     const [lat, lng] = geocode(adresa)
-                    const cas = isLive() ? datum[1].trim() : Math.floor(Math.random() * 100)
-                    console.log(`Adding ${adresa} - N ${lat} E ${lng} cas ${cas}`)
-                    const casString = (cas === '') ? 'Neznámy' : `${cas} minút`
-                    const tooltip = `${adresa}\nOdhadovaný čas čakania: ${casString}`
+                    if ([lat, lng] !== [0, 0]) {
+                        const cas = isLive() ? datum[1].trim() : Math.floor(Math.random() * 100)
+                        console.log(`Adding ${adresa} - N ${lat} E ${lng} cas ${cas}`)
+                        const casString = (cas === '') ? 'Neznámy' : `${cas} minút`
+                        const tooltip = `${adresa}\nOdhadovaný čas čakania: ${casString}`
 
-                    const color = (cas === '') ? 'grey' :
-                        (cas < 10) ? 'green' :
-                            (cas < 20) ? 'gold' :
-                                (cas < 40) ? 'yellow' :
-                                    (cas < 60) ? 'orange' : 'red'
+                        const color = (cas === '') ? 'grey' :
+                            (cas < 10) ? 'green' :
+                                (cas < 20) ? 'gold' :
+                                    (cas < 40) ? 'yellow' :
+                                        (cas < 60) ? 'orange' : 'red'
 
-                    addMarker(lat, lng, color, tooltip)
+                        addMarker(lat, lng, color, tooltip)
+                    }
                 })
             }
         )
