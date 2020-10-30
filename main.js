@@ -16,6 +16,7 @@ function initMap() {
         const div = L.DomUtil.create('div', 'info legend')
         let labels = ['<strong>Farby</strong>']
         labels.push('<i style="background:#2A81CB">Vonku</i>')
+        labels.push('<i style="background:#9C2BCB">Vonku + livestream</i>')
         labels.push('<i style="background:#7B7B7B">Vnútri</i>')
         labels.push('<i style="background:#2AAD27">Čas do 10 minút</i>')
         labels.push('<i style="background:#FFD326">Čas do 20 minút</i>')
@@ -177,7 +178,6 @@ function addMarker(lat, lng, color, tooltip) {
 
 function fetchData() {
     fetchKosice()
-    fetchRozhanovce()
     fetchOkolie()
 }
 
@@ -221,19 +221,10 @@ function fetchKosice() {
         )
 }
 
-
-function fetchRozhanovce() {
-    const url = 'https://testovanie-rozhanovce.webnode.sk/'
-    const miesta = [['Obecný úrad Rozhanovce', 48.751279, 21.343675], ['Kultúrny dom Rozhanovce', 48.750758, 21.344031]]
-    miesta.forEach(miesto => {
-            const tooltip = `${miesto[0]}\nWebkamera dostupná na ${url}`
-            addMarker(miesto[1], miesto[2], 'blue', tooltip)
-        }
-    )
-}
-
 function fetchOkolie() {
     const miesta = [
+        ['Obecný úrad Rozhanovce', 'Webkamera dostupná na https://testovanie-rozhanovce.webnode.sk/', 48.751279, 21.343675, 'violet'],
+        ['Kultúrny dom Rozhanovce', 'Webkamera dostupná na https://testovanie-rozhanovce.webnode.sk/', 48.750758, 21.344031, 'grey'],
         ['Futbalový štadión Budimír', 'https://www.obecbudimir.eu/', 48.795039, 21.306383, 'blue'],
         ['Družstevná pri Hornáde, multifunkčné ihrisko', 'https://www.druzstevna.sk/uvod/testovanie-na-covid-19/', 48.800698, 21.251329, 'blue'],
         ['Ďurďošík na detstkom ihrisku, vonku', 'https://www.obecdurdosik.sk/index.php?id=3&ni=259', 48.742017, 21.415394, 'blue'],
@@ -247,7 +238,7 @@ function fetchOkolie() {
         ['Kultúrny dom Kokšov-Bakša', 'https://www.koksovbaksa.sk/aktuality-1/plosne-testovanie-na-covid-19-521sk.html', 48.647917, 21.323780, 'grey'],
         ['Sála kultúrneho domu, Hlavná 1/1, Nižný Klátov', 'https://www.niznyklatov.sk/oznam---casovy-harmonogram-plosneho-testovania--a22-141', 48.728026, 21.140781, 'grey'],
         ['Kultúrny dom – Vyšný Klátov 131', 'http://www.vysnyklatov.sk/--23-338-covid-19-plosne-testovanie', 48.742681, 21.123000, 'grey'],
-        // ['', 'https://www.baska-obec.sk/oznamy/covid-19-prve-celoplosne-testovanie-31-10-1-11-2020-0.html', ],
+        ['Pred obecným úradom Baška', 'https://www.baska-obec.sk/oznamy/covid-19-prve-celoplosne-testovanie-31-10-1-11-2020-0.html', 48.707352, 21.181164, 'blue'],
         ['Nádvorie základnej školy Kostoľany nad Hornádom', 'https://www.kostolany.sk/obec-2/udalosti-v-obci/aktuality/informacie-k-celoplosnemu-testovaniu-v-nasej-obci-161sk.html', 48.797976, 21.241041, 'blue'],
         ['Kamenná ulica, Sokoľ', 'https://www.obecsokol.sk/--23-691-testovanie-covid---19', 48.811322, 21.220372, 'blue'],
         ['Kultúrny dom Ploské - Ortáše', 'https://www.ploske.sk/oznam-o-celoplosnom-testovani-v-nasej-obci-a22-108', 48.830263, 21.358448, 'grey'],
@@ -255,7 +246,13 @@ function fetchOkolie() {
         ['Futbalové ihrisko Malá Ida', 'https://malaida.sk/celoplosne-testovanie-v-nasej-obci/', 48.672708, 21.169202, 'blue'],
         ['Kultúrny dom Bukovec', 'https://www.bukovec.eu/oznamy/celoplose-testovanie-obyvatelov-na-ochorenie-covid-19.html', 48.709486, 21.150181, 'grey'],
         ['Budova bývalej Základnej školy, Beniakovce 38', 'https://www.obecbeniakovce.sk/obec-1/oznamy/celoplosne-testovanie-obyvatelov-v-obci-beniakovce-oznam-490sk.html', 48.769029, 21.317520, 'grey'],
-        ['Chodba obecného úradu', 'http://www.hrasovik.ocu.sk/index.php?ids=45', 48.747853, 21.321738, 'grey']
+        ['Chodba obecného úradu', 'http://www.hrasovik.ocu.sk/index.php?ids=45', 48.747853, 21.321738, 'grey'],
+        ['Za obecným úradom Trsťany v altánku (iba v sobotu)', 'http://www.trstany.sk/index.php?id=3&ni=73', 48.758551, 21.406431, 'blue'],
+        ['Terasa pri Kultúrnom dome Valaliky', 'https://www.youtube.com/watch?v=5gYln5XCEMs', 48.633266, 21.297557, 'violet'],
+        ['Telocvičňa ZŠ Valaliky', 'http://www.valaliky.sk/60-uvod/849-plosne-testovanie-na-covid-19-vo-valalikoch', 48.634666, 21.299538, 'grey'],
+        ['Obecný úrad Geča', 'https://www.obecgeca.sk/obec-1/aktuality/mobilna-aplikacia-celoplosne-testovanie-v-obci-geca-209sk.html', 48.628166, 21.308840, 'grey'],
+        ['Pri obecnom úrade Chrastné 86', 'http://www.chrastne.sk/oznam-k-celoplosnemu-testovaniu-v-nasej-obci-a22-25', 48.791735, 21.347536, 'blue']
+
     ]
     miesta.forEach(miesto => {
             const tooltip = `${miesto[0]}\n${miesto[1]}`
