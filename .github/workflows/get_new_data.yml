@@ -1,4 +1,4 @@
-name: 'Workflow'
+name: 'Get new data'
 on:
   schedule:
     - cron: '*/5 * * * *'
