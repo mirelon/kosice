@@ -17,7 +17,7 @@ window.onload = initMap
 const geocodeData = [
     ["Kultúrny dom MČ Barca, Barčianská 31", 48.6851282, 21.2622264],
     ["Telocvičňa pri MÚ BARCA, Abovská 30", 48.6784262, 21.2647599],
-    ["letisko (príjazd len od Pereša,výjazd iba do Barce)", 48.677026, 21.2653788],
+    ["letisko (príjazd len od Pereša,výjazd iba do Barce)", 48.673234, 21.236836],
     ["ZŠ Krosnianska 2, telocvičňa", 48.7365091, 21.2888238],
     ["ZŠ Ľudovíta Fulu, telocvičňa", 48.7278534, 21.2879551],
     ["ZŠ Fábryho 44", 48.7439362, 21.2815874],
@@ -125,11 +125,11 @@ const geocodeData = [
 
 function geocode(adresa) {
     for (const geocodeDatum of geocodeData) {
-        if (adresa.trim() === geocodeDatum[0]) {
+        if (adresa === geocodeDatum[0]) {
             return geocodeDatum.slice(1)
         }
     }
-    console.log(`Could not geocode ${adresa.trim()}`)
+    console.warn(`Could not geocode ${adresa.trim()}`)
     return [0, 0]
 }
 
@@ -150,18 +150,15 @@ function fetchData() {
         .then(html => {
                 const wrappers = new DOMParser().parseFromString(html, 'text/html').getElementsByClassName('elementor-tab-content')
                 const trs = Array.from(wrappers).flatMap(wrapper => {
-                    console.log(wrapper)
                     return Array.from(wrapper.getElementsByTagName('tr'))
                 })
-                console.log(Array.from(trs))
                 const data = Array.from(trs).map(tr => {
                     const nazov = tr.getElementsByTagName('td')[0].innerText
                     const cas = tr.getElementsByTagName('td')[1].innerText
                     return [nazov, cas]
                 })
-                console.log(data)
                 data.map(datum => {
-                    const adresa = datum[0].trim()
+                    const adresa = datum[0].trim().replace('\n', '')
                     const [lat, lng] = geocode(adresa)
                     // const cas = datum[1].trim()
                     const cas = Math.floor(Math.random() * 100);
