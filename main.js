@@ -12,6 +12,7 @@ function initMap() {
     }).addTo(window.mapa)
     fetchData()
 }
+
 window.onload = initMap
 
 const geocodeData = [
@@ -60,7 +61,7 @@ const geocodeData = [
     ["OC Pereš, Revúcka 14", 48.6886802, 21.2114385],
     ["Futbalové ihrisko, Kovaľská 284", 48.662328, 21.202626],
     ["Bilingválne gymnázium, Park mládeže 5: Trakt A", 48.7408529, 21.254306],
-    ["Bilingválne gymnázium, Park mládeže 5: Trakt B", 48.7408529, 21.254306],
+    ["Bilingválne gymnázium, Park mládeže 5: Trakt B", 48.740601, 21.253762],
     ["Amfiteáter, Festivalové námestie 2", 48.7270899, 21.2386952],
     ["Technická Univerzita – Aula Maxima, Letná 9", 48.7306564999999, 21.2458953],
     ["Technická Univerzita – Združená poslucháreň, Boženy Němcovej 9", 48.7304697999999, 21.2455912],
@@ -117,7 +118,7 @@ const geocodeData = [
     ["Telocvičňa v basketbalovej hale ZŠ Bernolákova 16", 48.7095467, 21.2410818],
     ["Ústav telesnej výchovy a športu UPJŠ, Ondavská 21", 48.7202647, 21.2398985],
     ["Spoločenský pavilón, Trieda SNP 61", 48.7073703, 21.2407139],
-    ["MČ Západ, Magistrát mesta Košice, Trieda SNP 48/A (vchod od parkoviska)", 48.7141745, 21.2334256],
+    ["MČ Západ, Magistrát mesta Košice, Trieda SNP 48/A (vchod od parkoviska)", 48.7141745, 21.232887],
     ["Saleziáni don Bosca, Tri hôrky 17", 48.708415, 21.242494],
     ["Miestny úrad, Trieda SNP 39", 48.726417, 21.2507707],
     ["ZŠ Považská 12, telocvičňa/vonku", 48.7195647, 21.2381087]
@@ -144,7 +145,23 @@ function coloredIcon(color) {
     })
 }
 
+function addMarker(lat, lng, color, tooltip) {
+    console.log(`Adding N ${lat} E ${lng}, color ${color}, tooltip ${tooltip}`)
+    const urlRegexp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+    L.marker([lat, lng], {
+        title: tooltip,
+        icon: coloredIcon(color)
+    })
+        .bindPopup(tooltip.replace('\n', '<br/>').replace(urlRegexp, "<a href='$1' target='_blank'>$1</a>"))
+        .addTo(window.mapa)
+}
+
 function fetchData() {
+    fetchKosice()
+    fetchRozhanovce()
+}
+
+function fetchKosice() {
     fetch('miesta.html')
         .then(response => response.text())
         .then(html => {
@@ -172,14 +189,20 @@ function fetchData() {
                                 (cas < 40) ? 'yellow' :
                                     (cas < 60) ? 'orange' : 'red'
 
-                    L.marker([lat, lng], {
-                        title: tooltip,
-                        icon: coloredIcon(color)
-                    })
-                        .bindPopup(`${adresa}<br/>Odhadovaný čas čakania: ${casString}`)
-                        .addTo(window.mapa)
+                    addMarker(lat, lng, color, tooltip)
                 })
             }
         )
+}
+
+
+function fetchRozhanovce() {
+    const url = 'https://testovanie-rozhanovce.webnode.sk/'
+    const miesta = [['Obecný úrad Rozhanovce', 48.751279, 21.343675], ['Kultúrny dom Rozhanovce', 48.750758, 21.344031]]
+    miesta.forEach(miesto => {
+            const tooltip = `${miesto[0]}\nWebkamera dostupná na ${url}`
+            addMarker(miesto[1], miesto[2], 'grey', tooltip)
+        }
+    )
 
 }
