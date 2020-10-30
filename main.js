@@ -159,6 +159,7 @@ function addMarker(lat, lng, color, tooltip) {
 function fetchData() {
     fetchKosice()
     fetchRozhanovce()
+    fetchOkolie()
 }
 
 function fetchKosice() {
@@ -201,8 +202,39 @@ function fetchRozhanovce() {
     const miesta = [['Obecný úrad Rozhanovce', 48.751279, 21.343675], ['Kultúrny dom Rozhanovce', 48.750758, 21.344031]]
     miesta.forEach(miesto => {
             const tooltip = `${miesto[0]}\nWebkamera dostupná na ${url}`
-            addMarker(miesto[1], miesto[2], 'grey', tooltip)
+            addMarker(miesto[1], miesto[2], 'blue', tooltip)
         }
     )
+}
 
+function fetchOkolie() {
+    const miesta = [
+        ['Futbalový štadión Budimír', 'https://www.obecbudimir.eu/', 48.795039, 21.306383, 'blue'],
+        ['Družstevná pri Hornáde, multifunkčné ihrisko', 'https://www.druzstevna.sk/uvod/testovanie-na-covid-19/', 48.800698, 21.251329, 'blue'],
+        ['Ďurďošík na detstkom ihrisku, vonku', 'https://www.obecdurdosik.sk/index.php?id=3&ni=259', 48.742017, 21.415394, 'blue'],
+        ['Základná škola Košické Oľšany č. 215, vnútri', 'https://www.kosickeolsany.sk/', 48.732123, 21.345340, 'grey'],
+        ['Potraviny Vajkovce', 'https://www.obecvajkovce.sk/--23-89-plosne-testovanie-v-obci-vajkovce', 48.781760, 21.325748, 'blue'],
+        ['Telocvičňa Kráľovce', 'https://www.kralovce.sk/', 48.801783, 21.323515, 'blue'],
+        ['Obecný úrad Bidovce', 'https://www.bidovce.sk/celoplosne-testovanie-covid-19-informacia-oznam/mid/429250/.html', 48.736653, 21.437110, 'grey'],
+        ['Kultúrny dom Svinica', 'https://obecsvinica.sk/uradna-tabula/nezaradene/upresnenie-testovania/', 48.732346, 21.461602, 'grey'],
+        ['Obecný úrad Košická Polianka 122', 'http://www.kosickapolianka.sk/--23-642-orientacny-harmonogram-poradia-vykonavania-testovania-na-odbernom-mieste-kosicka-polianka-122', 48.692690, 21.343789, 'grey'],
+        ['Kultúrna sála Vyšná Hutka', 'http://www.vysnahutka.sk/--23-110-testovanie----casovy-harmonogram-', 48.675524, 21.353813, 'grey'],
+        ['Kultúrny dom Kokšov-Bakša', 'https://www.koksovbaksa.sk/aktuality-1/plosne-testovanie-na-covid-19-521sk.html', 48.647917, 21.323780, 'grey'],
+        ['Sála kultúrneho domu, Hlavná 1/1, Nižný Klátov', 'https://www.niznyklatov.sk/oznam---casovy-harmonogram-plosneho-testovania--a22-141', 48.728026, 21.140781, 'grey'],
+        ['Kultúrny dom – Vyšný Klátov 131', 'http://www.vysnyklatov.sk/--23-338-covid-19-plosne-testovanie', 48.742681, 21.123000, 'grey'],
+        // ['', 'https://www.baska-obec.sk/oznamy/covid-19-prve-celoplosne-testovanie-31-10-1-11-2020-0.html', ],
+        ['Nádvorie základnej školy Kostoľany nad Hornádom', 'https://www.kostolany.sk/obec-2/udalosti-v-obci/aktuality/informacie-k-celoplosnemu-testovaniu-v-nasej-obci-161sk.html', 48.797976, 21.241041, 'blue'],
+        ['Kamenná ulica, Sokoľ', 'https://www.obecsokol.sk/--23-691-testovanie-covid---19', 48.811322, 21.220372, 'blue'],
+        ['Kultúrny dom Ploské - Ortáše', 'https://www.ploske.sk/oznam-o-celoplosnom-testovani-v-nasej-obci-a22-108', 48.830263, 21.358448, 'grey'],
+        ['Futbalové ihrisko Ploské', 'https://www.ploske.sk/oznam-o-celoplosnom-testovani-v-nasej-obci-a22-108', 48.814739, 21.314535, 'blue'],
+        ['Futbalové ihrisko Malá Ida', 'https://malaida.sk/celoplosne-testovanie-v-nasej-obci/', 48.672708, 21.169202, 'blue'],
+        ['Kultúrny dom Bukovec', 'https://www.bukovec.eu/oznamy/celoplose-testovanie-obyvatelov-na-ochorenie-covid-19.html', 48.709486, 21.150181, 'grey'],
+        ['Budova bývalej Základnej školy, Beniakovce 38', 'https://www.obecbeniakovce.sk/obec-1/oznamy/celoplosne-testovanie-obyvatelov-v-obci-beniakovce-oznam-490sk.html', 48.769029, 21.317520, 'grey'],
+        ['Chodba obecného úradu', 'http://www.hrasovik.ocu.sk/index.php?ids=45', 48.747853, 21.321738, 'grey']
+    ]
+    miesta.forEach(miesto => {
+            const tooltip = `${miesto[0]}\n${miesto[1]}`
+            addMarker(miesto[2], miesto[3], miesto[4], tooltip)
+        }
+    )
 }
