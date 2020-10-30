@@ -251,7 +251,10 @@ function fetchOkolie() {
         ['Terasa pri Kultúrnom dome Valaliky', 'https://www.youtube.com/watch?v=5gYln5XCEMs', 48.633266, 21.297557, 'violet'],
         ['Telocvičňa ZŠ Valaliky', 'http://www.valaliky.sk/60-uvod/849-plosne-testovanie-na-covid-19-vo-valalikoch', 48.634666, 21.299538, 'grey'],
         ['Obecný úrad Geča', 'https://www.obecgeca.sk/obec-1/aktuality/mobilna-aplikacia-celoplosne-testovanie-v-obci-geca-209sk.html', 48.628166, 21.308840, 'grey'],
-        ['Pri obecnom úrade Chrastné 86', 'http://www.chrastne.sk/oznam-k-celoplosnemu-testovaniu-v-nasej-obci-a22-25', 48.791735, 21.347536, 'blue']
+        ['Pri obecnom úrade Chrastné 86', 'http://www.chrastne.sk/oznam-k-celoplosnemu-testovaniu-v-nasej-obci-a22-25', 48.791735, 21.347536, 'blue'],
+        ['Obecný úrad Čižatice (iba v nedeľu)', 'https://www.cizatice.sk/', 48.797020, 21.392812, 'grey'],
+        ['Malá sála kultúrneho domu - Sady nad Torysou, Byster', 'https://www.sadynadtorysou.sk/', 48.729116, 21.340244, 'grey'],
+        ['Areál základnej školy - Sady nad Torysou, Zdoba', 'https://www.sadynadtorysou.sk/', 48.706966, 21.330869, 'blue']
 
     ]
     miesta.forEach(miesto => {
