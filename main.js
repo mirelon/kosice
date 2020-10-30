@@ -1,23 +1,18 @@
 function initMap() {
-    //Enabling new cartography and themes
-    google.maps.visualRefresh = true;
-
-    //Setting starting options of map
-    const mapOptions = {
-        center: new google.maps.LatLng(48.721, 21.257),
-        zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    //Getting map DOM element
-    const mapElement = document.getElementById('mapDiv');
-
-    //Creating a map with DOM element which is just //obtained
-    window.mapa = new google.maps.Map(mapElement, mapOptions);
+    window.mapa = L.map('mapDiv').setView([48.721, 21.257], 12)
+    L.tileLayer('https://api.tomtom.com/map/1/tile/basic/{style}/{z}/{x}/{y}.{format}?key={accessToken}&tileSize={tileSize}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        style: 'main', // night
+        format: 'png',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'hQTcD1ASTmxsaLdgzev0K6Fts55chfw4'
+    }).addTo(window.mapa)
     fetchData()
 }
-
-google.maps.event.addDomListener(window, 'load', initMap);
+window.onload = initMap
 
 const geocodeData = [
     ["Kultúrny dom MČ Barca, Barčianská 31", 48.6851282, 21.2622264],
@@ -135,7 +130,18 @@ function geocode(adresa) {
         }
     }
     console.log(`Could not geocode ${adresa.trim()}`)
-    return [0,0]
+    return [0, 0]
+}
+
+function coloredIcon(color) {
+    return new L.Icon({
+        iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    })
 }
 
 function fetchData() {
@@ -161,16 +167,20 @@ function fetchData() {
                     const cas = Math.floor(Math.random() * 100);
                     console.log(`Adding ${adresa} - N ${lat} E ${lng} cas ${cas}`)
                     const casString = (cas === '') ? 'Neznámy' : `${cas} minút`
-                    const marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(lat, lng),
-                        title: `${adresa}\nOdhadovaný čas čakania: ${casString}`,
-                        icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            scale: 5,
-                            strokeColor: cas === '' ? 'grey' : `hsl(${Math.max(0, 120 - 2*cas)}, 100%, 50%)`
-                        }
+                    const tooltip = `${adresa}\nOdhadovaný čas čakania: ${casString}`
+
+                    const color = (cas === '') ? 'grey' :
+                        (cas < 10) ? 'green' :
+                            (cas < 20) ? 'gold' :
+                                (cas < 40) ? 'yellow' :
+                                    (cas < 60) ? 'orange' : 'red'
+
+                    L.marker([lat, lng], {
+                        title: tooltip,
+                        icon: coloredIcon(color)
                     })
-                    marker.setMap(window.mapa)
+                        .bindPopup(`${adresa}<br/>Odhadovaný čas čakania: ${casString}`)
+                        .addTo(window.mapa)
                 })
             }
         )
