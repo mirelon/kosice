@@ -10,6 +10,22 @@ function initMap() {
         zoomOffset: -1,
         accessToken: 'hQTcD1ASTmxsaLdgzev0K6Fts55chfw4'
     }).addTo(window.mapa)
+
+    const legend = L.control({position: 'bottomleft'})
+    legend.onAdd = function () {
+        const div = L.DomUtil.create('div', 'info legend')
+        let labels = ['<strong>Farby</strong>']
+        labels.push('<i style="background:#2A81CB">Vonku</i>')
+        labels.push('<i style="background:#7B7B7B">Vnútri</i>')
+        labels.push('<i style="background:#2AAD27">Čas do 10 minút</i>')
+        labels.push('<i style="background:#FFD326">Čas do 20 minút</i>')
+        labels.push('<i style="background:#CAC428">Čas do 40 minút</i>')
+        labels.push('<i style="background:#CB8427">Čas do 60 minút</i>')
+        labels.push('<i style="background:#CB2B3E">Čas nad 60 minút</i>')
+        div.innerHTML = labels.join('<br/>')
+        return div
+    };
+    legend.addTo(window.mapa);
     fetchData()
 }
 
