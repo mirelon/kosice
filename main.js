@@ -182,8 +182,8 @@ function fetchData() {
 }
 
 function isLive() {
-    return (Date.now() > 1604124000000 && Date.now() < 1604268000000)
-        || (Date.now() > 1604772000000 && Date.now() < 1604872800000)
+    return (Date.now() > 1604120400000 && Date.now() < 1604268000000)
+        || (Date.now() > 1604768400000 && Date.now() < 1604872800000)
 }
 
 function fetchKosice() {
